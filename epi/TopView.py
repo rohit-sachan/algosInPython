@@ -2,35 +2,28 @@ from collections import OrderedDict
 from functools import cmp_to_key
 
 class Segment:
-    def __init__(self, s, e, h, n):
-        self.h = h
-        self.e = e
-        self.s = s
-        self.n = n
+    def __init__(self, left, right, height, name):
+        self.height = height
+        self.right = right
+        self.left = left
+        self.name = name
 
     def __eq__(self, other):
-        return (self.s, self.e, self.n) == (other.s, other.e, other.n)
+        return (self.left, self.right, self.name) == (other.s, other.e, other.n)
 
     def __str__(self):
         return self.__repr__(self)
 
     def __repr__(self):
-        return "({0}-{1}@{2},{3})".format(self.n, self.h, self.s, self.e)
+        return "({0}-{1}@{2},{3})".format(self.name, self.height, self.left, self.right)
 
+class Endpoint:
+    def __init__(self,is_left,segment):
+        self.is_left= is_left
+        self.segment =segment
 
-def mycmp(segment_1, segment_2):
-    if segment_1.h < segment_2.h:
-        return -1
-    elif segment_1.h > segment_2:
-        return 1
-    else:
-        if segment_1.s < segment_2.s:
-            return -1
-        elif segment_1.s > segment_2.s:
-            return 1
-        else:
-            return 0
-
+    def value(self):
+        return  self.segment.left if self.is_left else self.segment.right
 
 class Blocks:
     def __init__(self, _segments):
@@ -39,8 +32,20 @@ class Blocks:
         print(_segments)
 
     def top_view(self):
-        return sorted(self.segments, key=cmp_to_key(mycmp), reverse=True)
-        # return self.segments
+        sorted_segs = self.leftort_segments()
+        self.merge_segments(sorted_segs)
+
+        return sorted_segs
+
+    def merge_segments(sorted_segs):
+        # first top view will be , first element in sorted segments
+        # we have to reduce this lists with other segments
+        for
+
+    pass
+
+    def sort_segments(self):
+        return sorted(self.segments, key=lambda segment: (segment.h, -segment.s), reverse=True)
 
 
 segments = [Segment(0, 4, 1, 'A'),
