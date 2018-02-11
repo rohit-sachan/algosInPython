@@ -1,6 +1,3 @@
-from collections import OrderedDict
-from functools import cmp_to_key
-
 class Segment:
     def __init__(self, left, right, height, name):
         self.height = height
@@ -17,34 +14,26 @@ class Segment:
     def __repr__(self):
         return "({0}-{1}@{2},{3})".format(self.name, self.height, self.left, self.right)
 
+
 class Endpoint:
-    def __init__(self,is_left,segment):
-        self.is_left= is_left
-        self.segment =segment
+    def __init__(self, is_left, segment):
+        self.is_left = is_left
+        self.segment = segment
 
     def value(self):
-        return  self.segment.left if self.is_left else self.segment.right
+        return self.segment.left if self.is_left else self.segment.right
 
-class Blocks:
+
+class Structure:
     def __init__(self, _segments):
         self.segments = _segments
         print("passed ")
         print(_segments)
 
     def top_view(self):
-        sorted_segs = self.leftort_segments()
-        self.merge_segments(sorted_segs)
+        return self.segments
 
-        return sorted_segs
-
-    def merge_segments(sorted_segs):
-        # first top view will be , first element in sorted segments
-        # we have to reduce this lists with other segments
-        for
-
-    pass
-
-    def sort_segments(self):
+    def sort_endpoints(self):
         return sorted(self.segments, key=lambda segment: (segment.h, -segment.s), reverse=True)
 
 
@@ -62,8 +51,9 @@ segments = [Segment(0, 4, 1, 'A'),
             Segment(4, 5, 4, 'D')
             ]
 if __name__ == '__main__':
-    blocks = Blocks(segments)
-    view = blocks.top_view()
+    structure = Structure(segments)
+    structure.sort_endpoints()
+    view = structure.top_view()
     expectedView = [
         Segment(0, 1, 5, 'A'),
         Segment(1, 3, 5, 'B'),
