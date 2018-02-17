@@ -23,18 +23,27 @@ class Endpoint:
     def value(self):
         return self.segment.left if self.is_left else self.segment.right
 
+    def __repr__(self):
+        return "({0}{1})".format(self.segment.name, self.value())
+
 
 class Structure:
     def __init__(self, _segments):
         self.segments = _segments
-        print("passed ")
+        print("passed segments ")
         print(_segments)
 
     def top_view(self):
-        return self.segments
+        sorted_endpoints = []
+        for segment_ in self.segments:
+            sorted_endpoints.append(Endpoint(True, segment_))
+            sorted_endpoints.append(Endpoint(False, segment_))
+        sorted_endpoints.sort(key=lambda end_point: end_point.value()) # O n(log n)
+        return sorted_endpoints
 
-    def sort_endpoints(self):
-        return sorted(self.segments, key=lambda segment: (segment.h, -segment.s), reverse=True)
+    @staticmethod
+    def sort_endpoints(end_points):
+        return
 
 
 segments = [Segment(0, 4, 1, 'A'),
@@ -52,8 +61,10 @@ segments = [Segment(0, 4, 1, 'A'),
             ]
 if __name__ == '__main__':
     structure = Structure(segments)
-    structure.sort_endpoints()
     view = structure.top_view()
+    print("top view ")
+    print(view)
+
     expectedView = [
         Segment(0, 1, 5, 'A'),
         Segment(1, 3, 5, 'B'),
@@ -69,6 +80,4 @@ if __name__ == '__main__':
         Segment(16, 17, 5, 'L'),
         Segment(17, 18, 5, 'H'),
     ]
-    print("top view ")
-    print(view)
     # print("found " + view == expectedView)
